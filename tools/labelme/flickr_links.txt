@@ -1,0 +1,15 @@
+Nicht den Zurück-Button im Browser benutzen, sonnst funktioniert das Webinterface nicht richtig :(
+
+Um die Annotation zu einem späteren Zeitpunkt fortzusetzen muss die URL kopiert werden. Diese kann dann später aufgerufen werden um die Annotation fortzusetzen.
+
+flickr_chris:	
+	-first image: https://labelme.jz-c.org/tool.html?collection=flickr_chris&mode=f&folder=flickr_chris&objects=stairs&viewobj=e&username=cvhci&image=2178220324_297c35d1ef_b.jpg
+	-last image: https://labelme.jz-c.org/tool.html?collection=flickr_chris&mode=f&folder=flickr_chris&objects=stairs&viewobj=e&username=cvhci&image=3132538659_c405dd1704_b.jpg
+
+flickr_jasper:	
+	-first image: https://labelme.jz-c.org/tool.html?collection=flickr_jasper&mode=f&folder=flickr_jasper&objects=stairs&viewobj=e&username=cvhci&image=7508330872_cd535d5e92_b.jpg
+	-last image: https://labelme.jz-c.org/tool.html?collection=flickr_jasper&mode=f&folder=flickr_jasper&objects=stairs&viewobj=e&username=cvhci&image=5888742730_ccf90d8a8b.jpg
+
+flickr_yang:	
+	-first image: https://labelme.jz-c.org/tool.html?collection=flickr_yang&mode=f&folder=flickr_yang&objects=stairs&viewobj=e&username=cvhci&image=32802351514_2ef01fb129_b.jpg
+	-last image: https://labelme.jz-c.org/tool.html?collection=flickr_yang&mode=f&folder=flickr_yang&objects=stairs&viewobj=e&username=cvhci&image=14780906127_3208b0198f_b.jpg
