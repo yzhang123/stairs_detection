@@ -96,8 +96,8 @@ labelMe = LabelMe(images_dir, annotations_dir)
 imageAnnotations = labelMe.extractImageAnnotations()
 
 for annotation in imageAnnotations:
-	image = Image.open(images_dir + '/' + annotation.image_filename)
-	image_drawing = ImageDraw.Draw(image)
+	image = Image.open(images_dir + '/' + annotation.image_filename).convert('RGB')
+	image_drawing = ImageDraw.Draw(image, mode='RGB')
 	saveImage = False
 
 	print(annotation.image_filename)
@@ -109,7 +109,7 @@ for annotation in imageAnnotations:
 				for i in range(1, len(polygon.points)):
 					image_drawing.line([polygon.points[i - 1], polygon.points[i]], fill=(34, 255, 0), width=4)
 
-				image_drawing.line([polygon.points[i], polygon.points[0]], fill=(34, 255, 0), width=4)
+				image_drawing.line([polygon.points[len(polygon.points) - 1], polygon.points[0]], fill=(34, 255, 0), width=4)
 
 				# draw bounding box
 				boundingBox = BoundingBox(polygon);
