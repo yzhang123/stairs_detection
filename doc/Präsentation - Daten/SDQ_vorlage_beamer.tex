@@ -1,0 +1,185 @@
+%% LaTeX-Beamer template for KIT design
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\documentclass[18pt]{beamer}
+
+%% SLIDE FORMAT
+
+% use 'beamerthemekit' for standard 4:3 ratio
+% for widescreen slides (16:9), use 'beamerthemekitwide'
+
+\usepackage{templates/beamerthemekit}
+% \usepackage{templates/beamerthemekitwide}
+
+%% TITLE PICTURE
+
+% if a custom picture is to be used on the title page, copy it into the 'logos'
+% directory, in the line below, replace 'mypicture' with the 
+% filename (without extension) and uncomment the following line
+% (picture proportions: 63 : 20 for standard, 169 : 40 for wide
+% *.eps format if you use latex+dvips+ps2pdf, 
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+\titleimage{treppe}
+
+%% TITLE LOGO
+
+% for a custom logo on the front page, copy your file into the 'logos'
+% directory, insert the filename in the line below and uncomment it
+
+\titlelogo{cvhci}
+
+% (*.eps format if you use latex+dvips+ps2pdf,
+% *.jpg/*.png/*.pdf if you use pdflatex)
+
+%% TikZ INTEGRATION
+
+% use these packages for PCM symbols and UML classes
+% \usepackage{templates/tikzkit}
+% \usepackage{templates/tikzuml}
+
+\usepackage[utf8]{inputenc}
+
+% for xml listing
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+\lstdefinestyle{xmlListingStyle}{
+  language=XML,
+  numbers=left,
+  stepnumber=0,
+  numbersep=10pt,
+  tabsize=4,
+  showspaces=false,
+  showstringspaces=false
+}
+
+% the presentation starts here
+
+\title[Daten/Bilder]{Treppen Detektierung - Daten/Bilder}
+\subtitle{Practical Course Computer Vision for Human-Computer Interactionn}
+\author{Yang Zhang, Chris Konop, Jasper Zimmer}
+
+\institute{Computer Vision for Human-Computer Interaction Lab}
+
+% Bibliography
+
+\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\addbibresource{templates/example.bib}
+\bibhang1em
+
+\begin{document}
+
+% change the following line to "ngerman" for German style date and logos
+%\selectlanguage{english}
+\selectlanguage{ngerman}
+
+%title page
+\begin{frame}
+\titlepage
+\end{frame}
+
+%table of contents
+\begin{frame}{Outline/Gliederung}
+\tableofcontents
+\end{frame}
+
+\section{Labeling}
+\subsection{LabelMe - Annotationstool}
+\begin{frame}{LabelMe - Übersicht}
+\begin{itemize}
+\item Online Annotationstool
+\item Web Frontend
+\item Vorgabe von Labels, z.B. Stairs
+\item Unterstützt Annotation durch Polygone
+\end{itemize}
+\end{frame}
+
+\begin{frame}{LabelMe - Frontend}
+\includegraphics[width=1.0\textwidth, height=0.8\textheight, clip]{images/labelme_example.PNG}
+\end{frame}
+
+\begin{frame}{LabelMe - Polygon}
+\includegraphics[width=1.0\textwidth, height=0.8\textheight, clip]{labelme_annotated_image/image.jpg}
+\end{frame}
+
+\begin{frame}{LabelMe - Annotationen(XML)}
+\lstinputlisting[language=XML, firstline=20, lastline=38, basicstyle=\fontsize{10}{10}\selectfont\ttfamily, style=xmlListingStyle]{labelme_annotated_image/annotation.xml}
+\end{frame}
+
+\subsection{Subsection 1.2}
+\begin{frame}{Example slide B}
+\begin{block}{Block 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{Section 2}
+\begin{frame}{Example slide C}
+\begin{exampleblock}{Example 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Example slide D}
+\begin{alertblock}{Alert 1}
+\begin{itemize}
+\item Bullet point 1
+\pause
+\item Bullet point 2
+\item \dots
+\end{itemize}
+\end{alertblock}
+\end{frame}
+
+\appendix
+\beginbackup
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography
+\end{frame}
+
+\backupend
+
+\end{document}
