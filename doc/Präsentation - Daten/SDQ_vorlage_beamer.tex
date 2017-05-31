@@ -228,6 +228,21 @@
 \end{figure}
 \end{frame}
 
+\subsection{Verhältnis Polygon vs. BoundingBox Größe}
+\begin{frame}{Verhältnis - Polygon vs. BoundingBox Größe}
+\begin{figure}
+	\begin{tikzpicture}
+	\begin{axis}[width=1.0\textwidth,height=0.8\textheight,
+	xlabel={Überdeckung in \%},
+	ylabel={Anzahl der Bilder},
+	legend pos=north west]
+	
+	\addplot table[x=Ueberdeckung, y=Anzahl, col sep=comma] {data/polygon_box_size_ratio.csv};
+	\end{axis}
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
 \appendix
 \beginbackup
 

@@ -1,3 +1,4 @@
+import math
 import glob
 import xml.etree.ElementTree as et
 from PIL import Image, ImageDraw
@@ -88,12 +89,48 @@ class LabelMe:
 
 		return imageAnnotations
 
+def calcBoundingBoxImageRatio(boundingBox, image):
+	# calculate bounding box size
+	boundingBoxSize = abs((boundingBox.p1[0] - boundingBox.p2[0]) * (boundingBox.p1[1] - boundingBox.p2[1]))
+	# calculate image size
+	imageSize = image.size[0] * image.size[1]
+	# calculate ratio between image and bounding box size
+
+	return boundingBoxSize * 1.0 / imageSize * 1.0
+
+def calcPolygonArea(polygon):
+	n = len(polygon.points)
+
+	if n < 3: 
+		return 0.0
+
+	a = 0.0
+	points = polygon.points
+
+	for i in range(0, n):
+		a += (points[i][1] + points[(i+1) % n][1]) * (points[i][0] - points[(i+1) % n][0]);
+
+	return abs(a / 2.0)
+
+def calcPolygonBoundingBoxRatio(polygon, boundingBox):
+	# calculate bounding box size
+	boundingBoxSize = abs((boundingBox.p1[0] - boundingBox.p2[0]) * (boundingBox.p1[1] - boundingBox.p2[1]))
+	# calculate area of polygon
+	polygonSize = calcPolygonArea(polygon)
+
+	return polygonSize * 1.0 / boundingBoxSize * 1.0
+	
+
 images_dir = './Images'
 annotations_dir = './Annotations'
 out_dir = './Out'
 
 labelMe = LabelMe(images_dir, annotations_dir)
 imageAnnotations = labelMe.extractImageAnnotations()
+
+stats = []
+for i in range(0, 100):
+	stats.append(0)
 
 for annotation in imageAnnotations:
 	image = Image.open(images_dir + '/' + annotation.image_filename).convert('RGB')
@@ -118,16 +155,18 @@ for annotation in imageAnnotations:
 				image_drawing.line([boundingBox.p2, (boundingBox.p2[0], boundingBox.p1[1])], fill=(0, 0, 255), width=4)
 				image_drawing.line([(boundingBox.p2[0], boundingBox.p1[1]), boundingBox.p1], fill=(0, 0, 255), width=4)
 
-				# calculate bounding box size
-				boundingBoxSize = abs((boundingBox.p1[0] - boundingBox.p2[0]) * (boundingBox.p1[1] - boundingBox.p2[1]))
-				# calculate image size
-				imageSize = image.size[0] * image.size[1]
-				# calculate ratio between image and bounding box size
-				ratio = boundingBoxSize * 1.0 / imageSize * 1.0
+				#ratio = calcBoundingBoxImageRatio(boundingBox, image)
+				ratio = calcPolygonBoundingBoxRatio(polygon, boundingBox)
 
 				# save image only if the ratio between the bounding box and the image size is under a specified threshold
-				if ratio < 0.25:
-					saveImage = True
+				#if ratio < 0.25:
+				#	saveImage = True
+
+				stats[int(math.floor(ratio * 100.0))] += 1
 
 	if saveImage == True:
 		image.save(out_dir + '/' + annotation.image_filename)
+
+for i in range(0, 100):
+	print(str(i) + ": " + str(stats[i]))
+
