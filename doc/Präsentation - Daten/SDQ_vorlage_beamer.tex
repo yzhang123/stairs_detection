@@ -85,6 +85,10 @@
   showstringspaces=false
 }
 
+% for plotting
+\usepackage{pgfplots}
+\usepackage{mathtools}
+
 % the presentation starts here
 
 \title[Daten/Bilder]{Treppen Detektierung - Daten/Bilder}
@@ -122,7 +126,7 @@
 \item Online Annotationstool
 \item Web Frontend
 \item Vorgabe von Labels, z.B. Stairs
-\item Unterstützt Annotation durch Polygone
+\item Annotation durch Polygone
 \end{itemize}
 \end{frame}
 
@@ -138,39 +142,90 @@
 \lstinputlisting[language=XML, firstline=20, lastline=38, basicstyle=\fontsize{10}{10}\selectfont\ttfamily, style=xmlListingStyle]{labelme_annotated_image/annotation.xml}
 \end{frame}
 
-\subsection{Subsection 1.2}
-\begin{frame}{Example slide B}
-\begin{block}{Block 1}
+\section{Daten}
+\subsection{Flickr}
+\begin{frame}{Flickr}
 \begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
+	\item Suchbegriffe: \textbf{Treppe, Rolltreppe, Steps, Stairs, Staircase, Escalator}
+	\item Bilder insgesamt: \textbf{23949}
+	\begin{itemize}
+		\item davon nur \textbf{58} Duplikate(Hash)
+		\item davon ca. \textbf{30\%} unbrauchbar
+	\end{itemize}
+	\item Bisher \textbf{3013} Bilder gelabelt
 \end{itemize}
-\end{block}
 \end{frame}
 
-\section{Section 2}
-\begin{frame}{Example slide C}
-\begin{exampleblock}{Example 1}
-\begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
-\end{itemize}
-\end{exampleblock}
+\subsection{Beispiele}
+\begin{frame}{Beispiele}
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4024886181_f1a802df84_b.jpg}
+\end{minipage}
+\begin{minipage}[c]{0.18\textwidth}
+	\hfill
+\end{minipage}
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4035000178_2030f90269_z.jpg}
+\end{minipage}
 \end{frame}
 
-\begin{frame}{Example slide D}
-\begin{alertblock}{Alert 1}
-\begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
-\end{itemize}
-\end{alertblock}
+\begin{frame}{Beispiele}
+\begin{minipage}[c]{0.4\textwidth}
+	\begin{minipage}[c]{0.4\textwidth}
+		\includegraphics[height=0.35\textheight, clip]{images/flickr_examples/4036295517_82db571311_b.jpg}
+	\end{minipage}\\
+	\begin{minipage}[c]{0.18\textwidth}
+		\vfill
+	\end{minipage}\\
+	\begin{minipage}[c]{0.4\textwidth}
+		\includegraphics[height=0.415\textheight, clip]{images/flickr_examples/4088220467_3926f18bf8_b.jpg}
+	\end{minipage}
+\end{minipage}
+\begin{minipage}[c]{0.14\textwidth}
+	\hfill
+\end{minipage}	
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4059454958_cd3d794049_z.jpg}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Beispiele}
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4061458562_295032a441_b.jpg}
+\end{minipage}
+\begin{minipage}[c]{0.14\textwidth}
+	\hfill
+\end{minipage}	
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4070233118_fbd77f3112_b.jpg}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Beispiele}
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4189244864_6cd6a94b7a_b.jpg}
+\end{minipage}
+\begin{minipage}[c]{0.18\textwidth}
+	\hfill
+\end{minipage}
+\begin{minipage}[c]{0.4\textwidth}
+	\includegraphics[height=0.8\textheight, clip]{images/flickr_examples/4094167619_9758970368_b.jpg}
+\end{minipage}
+\end{frame}
+
+\subsection{Verhältnis BoundingBox vs. Bild Größe}
+\begin{frame}{Verhältnis - BoundingBox vs. Bild Größe}
+\begin{figure}
+	\begin{tikzpicture}
+	\begin{axis}[width=1.0\textwidth,height=0.8\textheight,
+		xlabel={Überdeckung in \%},
+		ylabel={Anzahl der Bilder},
+		legend pos=north west]
+		
+		\addplot table[x=Ueberdeckung, y=Anzahl, col sep=comma] {data/box_image_size_ratio.csv};
+	\end{axis}
+	\end{tikzpicture}
+\end{figure}
 \end{frame}
 
 \appendix
