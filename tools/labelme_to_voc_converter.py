@@ -180,7 +180,7 @@ imageAnnotations = labelMe.extractImageAnnotations()
 for annotation in imageAnnotations:
     image = Image.open(labelmeImageFolder + '/' + annotation.image_filename).convert('RGB')
 
-    print(annotation.image_filename)
+    # print(annotation.image_filename)
 
     # only use annotations with only one polygon for now
     if len(annotation.polygons) == 1:
