@@ -37,8 +37,8 @@ case ${DATASET} in
     RATIOS="[0.5,1,2]"
     ;;
  stairs)
-    TRAIN_IMDB="stairs"
-    TEST_IMDB="stairs"
+    TRAIN_IMDB="stairs_trainval"
+    TEST_IMDB="stairs_trainval"
     ITERS=490000
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
@@ -77,4 +77,3 @@ else
     --net ${NET} \
     --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} ${EXTRA_ARGS}
 fi
-

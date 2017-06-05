@@ -148,7 +148,6 @@ class stairs(imdb):
       #         len(objs) - len(non_diff_objs))
       #objs = non_diff_objs
     num_objs = len(objs)
-
     boxes = np.zeros((num_objs, 4), dtype=np.uint16)
     gt_classes = np.zeros((num_objs), dtype=np.int32)
     overlaps = np.zeros((num_objs, self.num_classes), dtype=np.float32)
@@ -159,10 +158,10 @@ class stairs(imdb):
     for ix, obj in enumerate(objs):
       bbox = obj.find('bndbox')
       # Make pixel indexes 0-based
-      x1 = float(bbox.find('xmin').text) - 1
-      y1 = float(bbox.find('ymin').text) - 1
-      x2 = float(bbox.find('xmax').text) - 1
-      y2 = float(bbox.find('ymax').text) - 1
+      x1 = float(bbox.find('xmin').text)# - 1
+      y1 = float(bbox.find('ymin').text)# - 1
+      x2 = float(bbox.find('xmax').text)# - 1
+      y2 = float(bbox.find('ymax').text)# - 1
       cls = self._class_to_ind[obj.find('name').text.lower().strip()]
       boxes[ix, :] = [x1, y1, x2, y2]
       gt_classes[ix] = cls
@@ -186,11 +185,11 @@ class stairs(imdb):
     # VOCdevkit/results/VOC2007/Main/<comp_id>_det_test_aeroplane.txt
     filename = self._get_comp_id() + '_det_' + self._image_set + '_{:s}.txt'
     path = os.path.join(
-      self._devkit_path,
-      'results',
-      'stairs',
-      'Main',
-      filename)
+     self._devkit_path,
+     'stairs',
+     'Main',
+     'results',
+     filename)
     return path
 
   def _write_stairs_results_file(self, all_boxes):
@@ -199,6 +198,7 @@ class stairs(imdb):
         continue
       print('Writing {} stairs results file'.format(cls))
       filename = self._get_stairs_results_file_template().format(cls)
+
       with open(filename, 'wt') as f:
         for im_ind, index in enumerate(self.image_index):
           dets = all_boxes[cls_ind][im_ind]
