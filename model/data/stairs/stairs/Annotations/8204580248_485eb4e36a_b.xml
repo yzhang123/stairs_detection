@@ -1,0 +1,1 @@
+<annotation><folder>data/PascalVocFormat</folder><filename>8204580248_485eb4e36a_b.jpg</filename><size><width>768</width><height>1024</height><depth>3</depth></size><object><name>stairs</name><bndbox><xmin>60</xmin><ymin>216</ymin><xmax>746</xmax><ymax>963</ymax></bndbox></object></annotation>
