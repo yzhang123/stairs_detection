@@ -1,4 +1,5 @@
 import os
+import glob
 import shutil
 from urllib2 import urlopen
 import re
@@ -13,34 +14,57 @@ labelmeImageBaseUrl = labelmeBaseUrl + '/' + 'Images'
 labelmeCollections = ['flickr_yang', 'flickr_chris', 'flickr_jasper']
 
 # create folder structure for pascal voc format with the two folders Annotations ans JPEGImages
-if os.path.exists(labelmeBaseFolder):
-    shutil.rmtree(labelmeBaseFolder)
+if not os.path.exists(labelmeBaseFolder):
+    os.makedirs(labelmeBaseFolder)
 
-os.makedirs(labelmeBaseFolder)
-os.makedirs(labelmeImageFolder)
-os.makedirs(labelmeAnnotationFolder)
+if not os.path.exists(labelmeImageFolder):
+    os.makedirs(labelmeImageFolder)
+
+if not os.path.exists(labelmeAnnotationFolder):
+    os.makedirs(labelmeAnnotationFolder)
+
+alreadyDownloadedAnnotationPaths = str(glob.glob(labelmeAnnotationFolder + '/*.xml'))
+alreadyDownloadedImagePaths = str(glob.glob(labelmeImageFolder + '/*.jpg'))
+
+annotationPattern = re.compile('[a-z0-9]*\_[a-z0-9]*\_[a-z]*.xml')
+imagePattern = re.compile('[a-z0-9]*\_[a-z0-9]*\_[a-z]*.jpg')
+
+alreadyDownloadedAnnotations = annotationPattern.findall(alreadyDownloadedAnnotationPaths)
+alreadyDownloadedImages = imagePattern.findall(alreadyDownloadedImagePaths)
 
 for collection in labelmeCollections:
     urlpath =urlopen(labelmeAnnotationBaseUrl + '/' + collection)
     string = urlpath.read().decode('utf-8')
 
-    pattern = re.compile('[a-z0-9]*\_[a-z0-9]*\_[a-z]*.xml') #the pattern actually creates duplicates in the list
-
-    filelist = pattern.findall(string)
+    filelist = annotationPattern.findall(string)
 
     for filename in filelist:
         # download annotation file
         annotationFilename = filename
-        remoteAnnotationFile = urlopen(labelmeAnnotationBaseUrl + '/' + collection + '/' + annotationFilename)
-        localAnnotationFile = open(labelmeAnnotationFolder + '/' + filename,'wb')
-        localAnnotationFile.write(remoteAnnotationFile.read())
-        localAnnotationFile.close()
-        remoteAnnotationFile.close()
+
+        if not annotationFilename in alreadyDownloadedAnnotations:
+            remoteAnnotationFile = urlopen(labelmeAnnotationBaseUrl + '/' + collection + '/' + annotationFilename)
+            localAnnotationFile = open(labelmeAnnotationFolder + '/' + filename,'wb')
+            localAnnotationFile.write(remoteAnnotationFile.read())
+            localAnnotationFile.close()
+            remoteAnnotationFile.close()
+            alreadyDownloadedAnnotations.append(annotationFilename)
+
+            print('download annotation: ' + annotationFilename)
+        else:
+            print('skip annotation: ' + annotationFilename)
 
         # download image file
         imageFilename = filename.replace('.xml', '.jpg')
-        remoteImageFile = urlopen(labelmeImageBaseUrl + '/' + collection + '/' + imageFilename)
-        localImageFile = open(labelmeImageFolder + '/' + imageFilename,'wb')
-        localImageFile.write(remoteImageFile.read())
-        localImageFile.close()
-        remoteImageFile.close()
+
+        if not imageFilename in alreadyDownloadedImages:
+            remoteImageFile = urlopen(labelmeImageBaseUrl + '/' + collection + '/' + imageFilename)
+            localImageFile = open(labelmeImageFolder + '/' + imageFilename,'wb')
+            localImageFile.write(remoteImageFile.read())
+            localImageFile.close()
+            remoteImageFile.close()
+            alreadyDownloadedImages.append(imageFilename)
+
+            print('download image: ' + imageFilename)
+        else:
+            print('skip image: ' + imageFilename)
