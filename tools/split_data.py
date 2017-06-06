@@ -49,16 +49,16 @@ if __name__ == '__main__':
     train, val, trainval, test = file_indices[:num_train], file_indices[num_train:num_train+num_val],\
                                  file_indices[:num_train+num_val], file_indices[-num_test:]
 
-    with open(os.path.join(out_dir, 'train'), 'w') as fp:
+    with open(os.path.join(out_dir, 'train.txt'), 'w') as fp:
         for x in train:
             fp.write(x + '\n')
-    with open(os.path.join(out_dir, 'val'), 'w') as fp:
+    with open(os.path.join(out_dir, 'val.txt'), 'w') as fp:
         for x in val:
             fp.write(x + '\n')
-    with open(os.path.join(out_dir, 'trainval'), 'w') as fp:
+    with open(os.path.join(out_dir, 'trainval.txt'), 'w') as fp:
         for x in trainval:
             fp.write(x + '\n')
-    with open(os.path.join(out_dir, 'test'), 'w') as fp:
+    with open(os.path.join(out_dir, 'test.txt'), 'w') as fp:
         for x in test:
             fp.write(x + '\n')
 
