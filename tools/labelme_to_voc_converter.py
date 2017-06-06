@@ -160,9 +160,9 @@ class PascalVocAnnotation:
 labelmeBaseFolder = 'data/labelme'
 labelmeImageFolder = labelmeBaseFolder + '/Images'
 labelmeAnnotationFolder = labelmeBaseFolder + '/Annotations'
-pascalVocBaseFolder = 'data/PascalVocFormat'
+pascalVocBaseFolder = 'tf-faster-rcnn/data/stairs/stairs'
 pascalVocAnnotationFolder = pascalVocBaseFolder + '/Annotations'
-pascalVocJPEGImageFolder = pascalVocBaseFolder + '/JPEGImages'
+pascalVocJPEGImageFolder = pascalVocBaseFolder + '/Images'
 
 # create folder structure for pascal voc format with the two folders Annotations ans JPEGImages
 if os.path.exists(pascalVocBaseFolder):
