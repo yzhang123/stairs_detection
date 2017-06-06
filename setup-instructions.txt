@@ -1,0 +1,34 @@
+# download data from own labeme instance and convert it to the pascal_vo format
+1.	git clone --recursive https://github.com/yzhang123/stairs_detection.git stairs_detection
+2.	cd stairs_detection
+3.	python tools/download_labelme_data.py
+4.	python tools/labelme_to_voc_converter.py
+5.	python tools/split_data.py tf-faster-rcnn/data/stairs/stairs/Images tf-faster-rcnn/data/stairs/stairs/ImageSets/Main
+
+
+# prepare folder structure
+6.	cd tf-faster-rcnn
+7.	./data/scripts/fetch_faster_rcnn_models.sh
+8.	NET=vgg16 <-----------------------------------------
+9.	TRAIN_IMDB=stairs_trainval
+10.	mkdir -p output/${NET}/${TRAIN_IMDB}/default
+
+# download pre-trained models and weights
+11.	mkdir -p data/imagenet_weights
+12.	cd data/imagenet_weights
+13.	wget -v http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
+14.	tar -xzvf vgg_16_2016_08_28.tar.gz
+15.	mv vgg_16.ckpt vgg16.ckpt
+16.	cd ../..
+
+# build something
+17.	cd lib
+18.	make
+19.	cd ..
+
+20. mkdir -p data/stairs/stairs/ImageSets/Main
+21. mkdir -p data/stairs/stairs/Main/results
+
+22. edit variable ITERS in experiments/scripts/train_faster_rcnn.sh and experiments/scripts/train_faster_rcnn.sh to the prefered value. The value in both scripts has to be the same!!!!!!!!!
+	After training you can increase the value and the training will start with the weights already learned!!!!!
+23. ./experiments/scripts/train_faster_rcnn.sh 0 stairs vgg16
