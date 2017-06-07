@@ -32,3 +32,5 @@
 22. edit variable ITERS in experiments/scripts/train_faster_rcnn.sh and experiments/scripts/train_faster_rcnn.sh to the prefered value. The value in both scripts has to be the same!!!!!!!!!
 	After training you can increase the value and the training will start with the weights already learned!!!!!
 23. ./experiments/scripts/train_faster_rcnn.sh 0 stairs vgg16
+
+24. CUDA_VISIBLE_DEVICES=0 ./tools/stairs_demo.py
