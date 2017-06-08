@@ -36,7 +36,9 @@ for collection in labelmeCollections:
     urlpath =urlopen(labelmeAnnotationBaseUrl + '/' + collection)
     string = urlpath.read().decode('utf-8')
 
-    filelist = annotationPattern.findall(string)
+    filelist = list(set(annotationPattern.findall(string)))
+
+    print(filelist)
 
     for filename in filelist:
         # download annotation file
@@ -48,7 +50,6 @@ for collection in labelmeCollections:
             localAnnotationFile.write(remoteAnnotationFile.read())
             localAnnotationFile.close()
             remoteAnnotationFile.close()
-            alreadyDownloadedAnnotations.append(annotationFilename)
 
             print('download annotation: ' + annotationFilename)
         else:
@@ -63,7 +64,6 @@ for collection in labelmeCollections:
             localImageFile.write(remoteImageFile.read())
             localImageFile.close()
             remoteImageFile.close()
-            alreadyDownloadedImages.append(imageFilename)
 
             print('download image: ' + imageFilename)
         else:
