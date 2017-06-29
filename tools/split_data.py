@@ -20,20 +20,20 @@ def parse_args():
     sys.exit(1)
 
   args = parser.parse_args()
+  print('Called with args:')
+  print(args)
   return args
 
 
 
 if __name__ == '__main__':
     args = parse_args()
-    print('Called with args:')
-    print(args)
 
     in_dir = args.input_dir
     out_dir = args.output_dir
 
-    assert(os.path.exists(in_dir), "path does not exist")
-    assert(os.path.exists(out_dir), "path does not exist")
+    assert os.path.exists(in_dir), "path does not exist"
+    assert os.path.exists(out_dir), "path does not exist"
 
     files = [f for f in os.listdir(in_dir) if os.path.isfile(os.path.join(in_dir, f))]
     np.random.shuffle(files)
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     num_trainval = len(files) - num_test
     num_val = int(num_trainval / 5)
     num_train = num_trainval - num_val
-    print(num_test, num_val, num_train, num_trainval)
+    print("%s files split into: \ntrain: %s \nval: %s \ntrainval: %s \ntest: %s " %(len(files), num_train, num_val, num_trainval, num_test))
 
     file_indices = [os.path.splitext(f)[0] for f in files]
 
@@ -52,15 +52,19 @@ if __name__ == '__main__':
     with open(os.path.join(out_dir, 'train.txt'), 'w') as fp:
         for x in train:
             fp.write(x + '\n')
+    print("saved train.txt")
     with open(os.path.join(out_dir, 'val.txt'), 'w') as fp:
         for x in val:
             fp.write(x + '\n')
+    print("saved val.txt")
     with open(os.path.join(out_dir, 'trainval.txt'), 'w') as fp:
         for x in trainval:
             fp.write(x + '\n')
+    print("saved trainval.txt")
     with open(os.path.join(out_dir, 'test.txt'), 'w') as fp:
         for x in test:
             fp.write(x + '\n')
+    print("saved test.txt")
 
 
 

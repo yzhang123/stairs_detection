@@ -3,6 +3,7 @@
 2.	cd stairs_detection
 3.	python tools/download_labelme_data.py
 4.	python tools/labelme_to_voc_converter.py
+        mkdir -p tf-faster-rcnn/data/stairs/stairs/ImageSets/Main
 5.	python tools/split_data.py tf-faster-rcnn/data/stairs/stairs/Images tf-faster-rcnn/data/stairs/stairs/ImageSets/Main
 
 
@@ -26,11 +27,11 @@
 18.	make
 19.	cd ..
 
-20. mkdir -p data/stairs/stairs/ImageSets/Main
 21. mkdir -p data/stairs/stairs/Main/results
 
 22. edit variable ITERS in experiments/scripts/train_faster_rcnn.sh and experiments/scripts/train_faster_rcnn.sh to the prefered value. The value in both scripts has to be the same!!!!!!!!!
 	After training you can increase the value and the training will start with the weights already learned!!!!!
 23. ./experiments/scripts/train_faster_rcnn.sh 0 stairs vgg16
 
+# uses cpu
 24. CUDA_VISIBLE_DEVICES=0 ./tools/stairs_demo.py
