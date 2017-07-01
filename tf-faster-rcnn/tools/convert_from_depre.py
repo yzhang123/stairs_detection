@@ -13,11 +13,11 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import _init_paths
-from model.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
-from model.train_val import filter_roidb, get_training_roidb
-from datasets.factory import get_imdb
-import datasets.imdb
+#import _init_paths
+from lib.model.config import cfg, cfg_from_file, cfg_from_list, get_output_dir
+from lib.model.train_val import filter_roidb, get_training_roidb
+from lib.datasets.factory import get_imdb
+import lib.datasets.imdb
 import argparse
 import pprint
 import numpy as np
@@ -34,7 +34,7 @@ except ImportError:
 import tensorflow as tf
 from tensorflow.python import pywrap_tensorflow
 
-from nets.vgg16 import vgg16
+from lib.nets.vgg16 import vgg16
 
 def parse_args():
   """
