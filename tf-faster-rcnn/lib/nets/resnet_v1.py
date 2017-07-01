@@ -15,13 +15,13 @@ from tensorflow.contrib.slim.python.slim.nets import resnet_utils
 from tensorflow.contrib.slim.python.slim.nets import resnet_v1
 import numpy as np
 
-from nets.network import Network
+from lib.nets.network import Network
 from tensorflow.python.framework import ops
 from tensorflow.contrib.layers.python.layers import regularizers
 from tensorflow.python.ops import nn_ops
 from tensorflow.contrib.layers.python.layers import initializers
 from tensorflow.contrib.layers.python.layers import layers
-from model.config import cfg
+from lib.model.config import cfg
 
 def resnet_arg_scope(is_training=True,
                      weight_decay=cfg.TRAIN.WEIGHT_DECAY,

@@ -13,7 +13,7 @@ from __future__ import print_function
 __sets = {}
 #from datasets.pascal_voc import pascal_voc
 #from datasets.coco import coco
-from datasets.stairs import stairs
+from lib.datasets.stairs import stairs
 import numpy as np
 
 # Set up voc_<year>_<split>

@@ -9,8 +9,8 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-from datasets.imdb import imdb
-import datasets.ds_utils as ds_utils
+from lib.datasets.imdb import imdb
+import lib.datasets.ds_utils as ds_utils
 import xml.etree.ElementTree as ET
 import numpy as np
 import scipy.sparse
@@ -20,7 +20,7 @@ import pickle
 import subprocess
 import uuid
 from .voc_eval import voc_eval
-from model.config import cfg
+from lib.model.config import cfg
 
 
 class pascal_voc(imdb):

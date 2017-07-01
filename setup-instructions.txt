@@ -15,6 +15,7 @@
 10.	mkdir -p output/${NET}/${TRAIN_IMDB}/default
 
 # download pre-trained models and weights
+# run ./scripts/train_vgg_stairs.sh
 11.	mkdir -p data/imagenet_weights
 12.	cd data/imagenet_weights
 13.	wget -v http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz

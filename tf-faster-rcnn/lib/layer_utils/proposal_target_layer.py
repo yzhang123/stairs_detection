@@ -10,9 +10,9 @@ from __future__ import print_function
 
 import numpy as np
 import numpy.random as npr
-from model.config import cfg
-from model.bbox_transform import bbox_transform
-from utils.cython_bbox import bbox_overlaps
+from lib.model.config import cfg
+from lib.model.bbox_transform import bbox_transform
+from lib.utils.cython_bbox import bbox_overlaps
 
 
 def proposal_target_layer(rpn_rois, rpn_scores, gt_boxes, _num_classes):

@@ -7,10 +7,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from model.config import cfg
-import roi_data_layer.roidb as rdl_roidb
-from roi_data_layer.layer import RoIDataLayer
-from utils.timer import Timer
+from lib.model.config import cfg
+import lib.roi_data_layer.roidb as rdl_roidb
+from lib.roi_data_layer.layer import RoIDataLayer
+from lib.utils.timer import Timer
 try:
   import cPickle as pickle
 except ImportError:

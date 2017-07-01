@@ -8,9 +8,9 @@ from __future__ import division
 from __future__ import print_function
 
 import numpy as np
-from model.config import cfg
-from model.bbox_transform import bbox_transform_inv, clip_boxes
-from model.nms_wrapper import nms
+from lib.model.config import cfg
+from lib.model.bbox_transform import bbox_transform_inv, clip_boxes
+from lib.model.nms_wrapper import nms
 
 
 def proposal_layer(rpn_cls_prob, rpn_bbox_pred, im_info, cfg_key, _feat_stride, anchors, num_anchors):
