@@ -35,7 +35,7 @@ import numpy as np
 #    __sets[name] = (lambda split=split, year=year: coco(split, year))
 
 # Set up stairs_<split>
-for split in ['trainval', 'test']:
+for split in ['trainval', 'train', 'val', 'test']:
   name = 'stairs_{}'.format(split)
   __sets[name] = (lambda split=split: stairs(split))
 

@@ -12,10 +12,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import _init_paths
-from model.test import apply_nms
-from model.config import cfg
-from datasets.factory import get_imdb
+#import _init_paths
+from lib.model.test import apply_nms
+from lib.model.config import cfg
+from lib.datasets.factory import get_imdb
 import pickle
 import os, sys, argparse
 import numpy as np
