@@ -1,3 +1,0 @@
-[submodule "tf-faster-rcnn"]
-	path = tf-faster-rcnn
-	url = https://github.com/yzhang123/stairs_detection.git
