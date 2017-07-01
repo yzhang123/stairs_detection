@@ -43,8 +43,9 @@ case ${DATASET} in
     TRAIN_IMDB="stairs_train"
     EVAL_IMDB="stairs_val"
     TEST_IMDB="stairs_test"
-    STEPSIZE=1000
+    STEPSIZE=30000
     ITERS=100000
+    SNAPSHOT_KEPT=20
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;
