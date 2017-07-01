@@ -1,0 +1,8 @@
+- mehr labeln
+- train using res101
+- train using Google detection framework
+- analize using tensorboard
+- negative samples for training?
+- add logic to videos, e.g. subsequent frames should not be detected differently
+- self made video?
+- evaluation, draw roc curves

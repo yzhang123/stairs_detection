@@ -44,7 +44,7 @@ case ${DATASET} in
     EVAL_IMDB="stairs_val"
     TEST_IMDB="stairs_test"
     STEPSIZE=1000
-    ITERS=80000
+    ITERS=100000
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;

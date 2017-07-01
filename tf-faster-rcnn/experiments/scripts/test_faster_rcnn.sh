@@ -37,9 +37,10 @@ case ${DATASET} in
     RATIOS="[0.5,1,2]"
     ;;
  stairs)
-    TRAIN_IMDB="stairs_trainval"
+    TRAIN_IMDB="stairs_train"
+    EVAL_IMDB="stairs_val"
     TEST_IMDB="stairs_test"
-    ITERS=80000
+    ITERS=100000
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;
