@@ -40,10 +40,11 @@ case ${DATASET} in
     RATIOS="[0.5,1,2]"
     ;;
   stairs)
-    TRAIN_IMDB="stairs_trainval"
+    TRAIN_IMDB="stairs_train"
+    EVAL_IMDB="stairs_val"
     TEST_IMDB="stairs_test"
     STEPSIZE=1000
-    ITERS=80000
+    ITERS=100000
     ANCHORS="[4,8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;
@@ -70,7 +71,7 @@ if [ ! -f ${NET_FINAL}.index ]; then
         CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
             --weight data/imagenet_weights/${NET}.ckpt \
             --imdb ${TRAIN_IMDB} \
-            --imdbval ${TEST_IMDB} \
+            --imdbval ${EVAL_IMDB} \
             --iters ${ITERS} \
             --cfg experiments/cfgs/${NET}.yml \
             --tag ${EXTRA_ARGS_SLUG} \
@@ -80,7 +81,7 @@ if [ ! -f ${NET_FINAL}.index ]; then
         CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_net.py \
             --weight data/imagenet_weights/${NET}.ckpt \
             --imdb ${TRAIN_IMDB} \
-            --imdbval ${TEST_IMDB} \
+            --imdbval ${EVAL_IMDB} \
             --iters ${ITERS} \
             --cfg experiments/cfgs/${NET}.yml \
             --net ${NET} \
