@@ -1,3 +1,7 @@
-data
+data/CVHCI
+data/cvhci_train.record
+data/cvhci_val.record
+data/cvhci_trainval.record
+data/cvhci_test.record
 train_output
 eval_output

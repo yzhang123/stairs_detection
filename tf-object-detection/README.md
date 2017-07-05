@@ -11,6 +11,7 @@ export PATH_TO_TENSORFLOW_MODEL_REPOSITORY=../../models
 ```bash
 # From the stairs_detection/tf-object-detection directory
 python fetch_cvhci_dataset.py
+python filter_cvhci_dataset.py
 python split_cvhci_dataset.py --dataset_dir=data/CVHCI --output_dir=data/CVHCI/ImageSets
 ```
 
