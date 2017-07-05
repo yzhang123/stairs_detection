@@ -5,3 +5,5 @@ data/cvhci_trainval.record
 data/cvhci_test.record
 train_output
 eval_output
+inference_output
+test_output
