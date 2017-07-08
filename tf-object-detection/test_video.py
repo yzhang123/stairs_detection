@@ -15,9 +15,6 @@ PATH_TO_CKPT = 'inference_output/output_inference_graph.pb'
 PATH_TO_LABELS = 'data/cvhci_label_map.pbtxt'
 NUM_CLASSES = 1
 
-# Size, in inches, of the output images.
-IMAGE_SIZE = (12, 8)
-
 CV_OUTPUT_WINDOW_NAME = 'Stair detection on video'
 CV_FRAME_TRACKBAR_NAME = ' frame trackbar'
 
@@ -31,12 +28,13 @@ def parse_args():
 	parser = argparse.ArgumentParser(description='Detect all stairs in a video file')
 	parser.add_argument('--video_input', dest='video_input', help='Path to the video input file', required=True)
 	parser.add_argument('--video_output', dest='video_output', help='Path to the video output file', required=True)
+	parser.add_argument('--first_frame', dest='first_frame', help='Start frame to play the video', default=0)
 	args = parser.parse_args()
 
 	return args
 
 def onChange(trackbarValue):
-    cap.set(cv2.CAP_PROP_POS_FRAMES, trackbarValue)
+    cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, trackbarValue)
     err, img = cap.read()
     cv2.imshow(CV_OUTPUT_WINDOW_NAME, img)
     pass
@@ -46,23 +44,23 @@ if __name__ == '__main__':
 
     video_input = args.video_input
     video_output = args.video_output
+    first_frame = int(args.first_frame)
 
     # video input
     cap = cv2.VideoCapture(video_input)
-    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    print('length: ' + str(length))
-    current_frame = 1000
-    fps = cap.get(cv2.CAP_PROP_FPS)
+    length = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
+    current_frame = first_frame
+    fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
 
     # video output
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(video_output, fourcc, fps / 5, (600, 400))
+    fourcc = cv2.cv.CV_FOURCC(*'XVID')
+    #out = cv2.VideoWriter(video_output, fourcc, fps / 5, (300, 200))
 
     cv2.namedWindow(CV_OUTPUT_WINDOW_NAME)
     cv2.createTrackbar( CV_FRAME_TRACKBAR_NAME, CV_OUTPUT_WINDOW_NAME, 0, 10000, onChange)
 
     onChange(current_frame)
-    cap.set(cv2.CAP_PROP_POS_FRAMES, current_frame)
+    cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, current_frame)
 
     detection_graph = tf.Graph()
     with detection_graph.as_default():
@@ -88,10 +86,14 @@ if __name__ == '__main__':
                     # convert from BGR to RGB
                     cv_input_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     image = Image.fromarray(cv_input_image)
+                    
+                    ratio = 0.5
+                    size = image.size
+                    resized_image = image.resize((int(size[0] * ratio), int(size[1] * ratio)), Image.ANTIALIAS)
 
                     # the array based representation of the image will be used later in order to prepare the
                     # result image with boxes and labels on it.
-                    image_np = load_image_into_numpy_array(image)
+                    image_np = load_image_into_numpy_array(resized_image)
                     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                     image_np_expanded = np.expand_dims(image_np, axis=0)
                     image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
@@ -119,11 +121,12 @@ if __name__ == '__main__':
                     # convert from RGB to BGR
                     cv_output_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
 
-                    out.write(cv_output_image)
+                    #out.write(cv_output_image)
                     cv2.imshow(CV_OUTPUT_WINDOW_NAME, cv_output_image)
+                    cv2.waitKey(1)
 
                 current_frame +=1
 
     cap.release()
-    out.release()
+    #out.release()
     cv2.destroyAllWindows()
