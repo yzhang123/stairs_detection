@@ -88,9 +88,8 @@ if __name__ == '__main__':
 					cv_input_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 					image = Image.fromarray(cv_input_image)
 					
-					ratio = 0.5
 					size = image.size
-					resized_image = image.resize((int(size[0] * ratio), int(size[1] * ratio)), Image.ANTIALIAS)
+					resized_image = image.resize((video_resized_width, video_resized_height), Image.ANTIALIAS)
 
 					# the array based representation of the image will be used later in order to prepare the
 					# result image with boxes and labels on it.
