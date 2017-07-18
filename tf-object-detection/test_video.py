@@ -45,15 +45,15 @@ if __name__ == '__main__':
 	# video input
 	cap = cv2.VideoCapture(video_input)
 	cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, first_frame)
-	
+
 	video_original_width = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH))
 	video_original_height = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT))
 	video_original_total_frames = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
 	video_original_fps = float(cap.get(cv2.cv.CV_CAP_PROP_FPS))
-	
+
 	video_resized_width = int(video_original_width * VIDEO_RESIZE_RATIO)
 	video_resized_height = int(video_original_height * VIDEO_RESIZE_RATIO)
-	
+
 	video_detection_fps = float(video_original_fps / VIDEO_DETECTION_DIVIDER)
 	video_detection_wait_time = int(1000 / video_detection_fps)
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 	cv2.namedWindow(CV_OUTPUT_WINDOW_NAME)
 
 	detection_graph = tf.Graph()
-	
+
 	with detection_graph.as_default():
 		od_graph_def = tf.GraphDef()
 		with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
@@ -80,14 +80,14 @@ if __name__ == '__main__':
 		with tf.Session(graph=detection_graph) as sess:
 			while(cap.isOpened()):
 				next_frame = int(cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES))
-				ret, frame = cap.read()
+				ret, frame = cap.retrieve()
 
 				if next_frame % VIDEO_DETECTION_DIVIDER == 0:
 					print('processing frame ' + str(next_frame) + ' of ' + str(video_original_total_frames))
 					# convert from BGR to RGB
 					cv_input_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 					image = Image.fromarray(cv_input_image)
-					
+
 					size = image.size
 					resized_image = image.resize((video_resized_width, video_resized_height), Image.ANTIALIAS)
 
@@ -120,12 +120,15 @@ if __name__ == '__main__':
 
 					# convert from RGB to BGR
 					cv_output_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
-					
+
 					cv2.imshow(CV_OUTPUT_WINDOW_NAME, cv_output_image)
 					out.write(cv_output_image)
-					
+
 					if cv2.waitKey(video_detection_wait_time) & 0xFF == ord('q'):
 						break
+
+				if next_frame == video_original_total_frames:
+					break
 
 	cap.release()
 	out.release()
