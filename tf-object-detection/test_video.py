@@ -39,7 +39,6 @@ def parse_args():
 
 
 if __name__ == '__main__':
-
     args = parse_args()
 
     video_input = args.video_input
@@ -157,6 +156,8 @@ if __name__ == '__main__':
 
 
                     #time_write_out_image_start = time.time()
+
+
                     # convert from RGB to BGR
                     cv_output_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
                     #cv2.imshow(CV_OUTPUT_WINDOW_NAME, cv_output_image)
@@ -176,7 +177,6 @@ if __name__ == '__main__':
                     #                                                                                       time_visualize_end - time_visualize_start) / total_iter_time,
                     #                                                                                   (
                     #                                                                                       time_write_out_image_end - time_write_out_image_start) / total_iter_time))
-                    #time_iter_start = time.time()
 
                 if next_frame == video_original_total_frames:
                     break
