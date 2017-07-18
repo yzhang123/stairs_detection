@@ -102,16 +102,16 @@ if __name__ == '__main__':
     print('Loaded network {:s}'.format(tfmodel))
 
     cap = cv2.VideoCapture(args.video_path)
-    length = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
+    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     i = 0
     
-    fps = cap.get(cv2.cv.CV_CAP_PROP_FPS)
+    fps = cap.get(cv2.CAP_PROP_FPS)
     
-    fourcc = cv2.cv.CV_FOURCC(*'XVID')
+    fourcc = cv2.FOURCC(*'XVID')
     out = cv2.VideoWriter('/tmp/output.avi', fourcc, fps / 5, (640,480))
     
     def onChange(trackbarValue):
-        cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, trackbarValue)
+        cap.set(cv2.CAP_PROP_POS_FRAMES, trackbarValue)
         err,img = cap.read()
         cv2.imshow("stair detection", img)
         pass
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     cv2.createTrackbar( 'frame', 'stair detection', 0, length, onChange)
     
     onChange(i)
-    cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, i)
+    cap.set(cv2.CAP_PROP_POS_FRAMES, i)
     
     while(cap.isOpened()):
 		ret, frame = cap.read()
