@@ -111,10 +111,10 @@ if __name__ == '__main__':
 
                 if next_frame % VIDEO_DETECTION_DIVIDER == 0:
 
-                    time_iter_start = time.time()
+                    #time_iter_start = time.time()
 
 
-                    time_prepro_start = time.time()
+                    #time_prepro_start = time.time()
                     ret, frame = cap.retrieve()
                     print('processing frame ' + str(next_frame) + ' of ' + str(video_original_total_frames))
                     # convert from BGR to RGB
@@ -127,24 +127,24 @@ if __name__ == '__main__':
                     image_np = load_image_into_numpy_array(resized_image)
                     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                     image_np_expanded = np.expand_dims(image_np, axis=0)
-                    time_prepro_end = time.time()
+                    #time_prepro_end = time.time()
 
 
 
 
-                    time_inference_start = time.time()
+                    #time_inference_start = time.time()
                     # Actual detection.
                     (boxes, scores, classes, num_detections) = sess.run(
                         [boxes_tf, scores_tf, classes_tf, num_detections_tf],
                         feed_dict={image_tensor_tf: image_np_expanded})
                     # Visualization of the results of a detection.
-                    time_inference_end = time.time()
+                    #time_inference_end = time.time()
 
 
 
 
 
-                    time_visualize_start = time.time()
+                    #time_visualize_start = time.time()
                     vis_util.visualize_boxes_and_labels_on_image_array(
                         image_np,
                         np.squeeze(boxes),
@@ -153,29 +153,29 @@ if __name__ == '__main__':
                         category_index,
                         use_normalized_coordinates=True,
                         line_thickness=8)
-                    time_visualize_end = time.time()
+                    #time_visualize_end = time.time()
 
 
-                    time_write_out_image_start = time.time()
+                    #time_write_out_image_start = time.time()
                     # convert from RGB to BGR
                     cv_output_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
                     #cv2.imshow(CV_OUTPUT_WINDOW_NAME, cv_output_image)
                     out.write(cv_output_image)
-                    time_write_out_image_end = time.time()
+                    #time_write_out_image_end = time.time()
 
                     # if cv2.waitKey(video_detection_wait_time) & 0xFF == ord('q'):
                     #     break
 
-                    time_iter_end = time.time()
-                    total_iter_time = float(time_iter_end - time_iter_start)
-                    print('frame %s| total: %s, prepro: %s, inference: %s, visual: %s, saving: %s' % (next_frame, total_iter_time,
-                                                                                                      (time_prepro_end - time_prepro_start)/total_iter_time,
-                                                                                                      (
-                                                                                                          time_inference_end - time_inference_start) / total_iter_time,
-                                                                                                      (
-                                                                                                          time_visualize_end - time_visualize_start) / total_iter_time,
-                                                                                                      (
-                                                                                                          time_write_out_image_end - time_write_out_image_start) / total_iter_time))
+                    #time_iter_end = time.time()
+                    #total_iter_time = float(time_iter_end - time_iter_start)
+                    #print('frame %s| total: %s, prepro: %s, inference: %s, visual: %s, saving: %s' % (next_frame, total_iter_time,
+                    #                                                                                  (time_prepro_end - time_prepro_start)/total_iter_time,
+                    #                                                                                  (
+                    #                                                                                      time_inference_end - time_inference_start) / total_iter_time,
+                    #                                                                                   (
+                    #                                                                                       time_visualize_end - time_visualize_start) / total_iter_time,
+                    #                                                                                   (
+                    #                                                                                       time_write_out_image_end - time_write_out_image_start) / total_iter_time))
                     #time_iter_start = time.time()
 
                 if next_frame == video_original_total_frames:
