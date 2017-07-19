@@ -33,6 +33,7 @@ def parse_args():
     parser.add_argument('--video_input', dest='video_input', help='Path to the video input file', required=True)
     parser.add_argument('--video_output', dest='video_output', help='Path to the video output file', required=True)
     parser.add_argument('--first_frame', dest='first_frame', help='Start frame to play the video', default=0)
+    parser.add_argument('--graph', dest='graph', help='inference graph', default=PATH_TO_CKPT)
     args = parser.parse_args()
 
     return args
@@ -80,7 +81,7 @@ if __name__ == '__main__':
 
     with detection_graph.as_default():
         od_graph_def = tf.GraphDef()
-        with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+        with tf.gfile.GFile(args.graph, 'rb') as fid:
             serialized_graph = fid.read()
             od_graph_def.ParseFromString(serialized_graph)
             tf.import_graph_def(od_graph_def, name='')
@@ -151,7 +152,8 @@ if __name__ == '__main__':
                         np.squeeze(scores),
                         category_index,
                         use_normalized_coordinates=True,
-                        line_thickness=8)
+                        line_thickness=1)
+                    cv2.putText(image_np, '%s' %next_frame, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
                     #time_visualize_end = time.time()
 
 
