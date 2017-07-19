@@ -152,7 +152,8 @@ if __name__ == '__main__':
                         np.squeeze(scores),
                         category_index,
                         use_normalized_coordinates=True,
-                        line_thickness=1)
+                        line_thickness=1,
+                        min_score_thresh=0.8)
                     cv2.putText(image_np, '%s' %next_frame, (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255))
                     #time_visualize_end = time.time()
 
